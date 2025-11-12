@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Economy - ProSa Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">ProSa Circular Economy Project</h1>
+        
+        <div class="circular-infographic">
+            <!-- Central image in the middle of the big circle -->
+            <img src="../img/ProSa_cropped.png" alt="Central Image" class="central-image">
+            <!-- Central Ring with gradient segments -->
+            <svg class="main-circle" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Gradient definitions -->
+                    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#a8e6cf;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#56ab91;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#56ab91;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2d8659;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient3" x1="100%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#2d8659;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1a6b4a;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient4" x1="100%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#1a6b4a;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#158f7c;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient5" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#158f7c;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4db8a8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="gradient6" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4db8a8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#a8e6cf;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Main ring segments -->
+                <path class="ring-segment" d="M 200 80 A 120 120 0 0 1 304 146" stroke="url(#gradient1)" />
+                <path class="ring-segment" d="M 304 146 A 120 120 0 0 1 304 254" stroke="url(#gradient2)" />
+                <path class="ring-segment" d="M 304 254 A 120 120 0 0 1 200 320" stroke="url(#gradient3)" />
+                <path class="ring-segment" d="M 200 320 A 120 120 0 0 1 96 254" stroke="url(#gradient4)" />
+                <path class="ring-segment" d="M 96 254 A 120 120 0 0 1 96 146" stroke="url(#gradient5)" />
+                <path class="ring-segment" d="M 96 146 A 120 120 0 0 1 200 80" stroke="url(#gradient6)" />
+                
+                <!-- Connection lines to icons -->
+                <line x1="200" y1="80" x2="200" y2="40" class="connector-line" />
+                <line x1="304" y1="146" x2="340" y2="110" class="connector-line" />
+                <line x1="304" y1="254" x2="340" y2="290" class="connector-line" />
+                <line x1="200" y1="320" x2="200" y2="360" class="connector-line" />
+                <line x1="96" y1="254" x2="60" y2="290" class="connector-line" />
+                <line x1="96" y1="146" x2="60" y2="110" class="connector-line" />
+            </svg>
+            
+            <!-- Participant circles -->
+            <div class="participant-circle circle-1" data-participant="1">
+                <a href="#participant-1" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Production</span>
+                </a>
+            </div>
+            
+            <div class="participant-circle circle-2" data-participant="2">
+                <a href="#participant-2" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Distribution</span>
+                </a>
+            </div>
+            
+            <div class="participant-circle circle-3" data-participant="3">
+                <a href="#participant-3" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Consumption</span>
+                </a>
+            </div>
+            
+            <div class="participant-circle circle-4" data-participant="4">
+                <a href="#participant-4" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Collection</span>
+                </a>
+            </div>
+            
+            <div class="participant-circle circle-5" data-participant="5">
+                <a href="#participant-5" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Recycling</span>
+                </a>
+            </div>
+            
+            <div class="participant-circle circle-6" data-participant="6">
+                <a href="#participant-6" class="circle-link">
+                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    </svg>
+                    <span class="participant-label">Recovery</span>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
