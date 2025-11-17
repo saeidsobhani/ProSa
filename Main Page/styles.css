@@ -11,15 +11,107 @@ body {
     color: #333;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+.header {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    padding: 20px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-btn {
+    background-color: #2d8659;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-btn:hover {
+    background-color: #1a6b4a;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 8px 15px;
+    }
+    
+    .header-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .container {
+        margin-top: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-buttons {
+        gap: 8px;
+    }
+    
+    .header-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .footer-text {
+        font-size: 0.75rem;
+    }
+}
+
+/* Footer styles */
+.footer {
+    margin-top: auto;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-text {
+    color: #666;
+    font-size: 0.8rem;
+    margin: 0;
 }
 
 .container {
     max-width: 900px;
     width: 100%;
     text-align: center;
+    margin: 80px auto 40px auto; /* Added top margin for fixed header */
 }
 
 .title {
@@ -88,6 +180,8 @@ body {
     height: 100%;
     text-decoration: none;
     position: relative;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 /* Circle background */
@@ -104,27 +198,11 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 200px;
-    height: 200px;
+    width: min(20vw, 190px);
+    height: min(20vw, 190px);
     transform: translate(-50%, -50%);
-    border-radius: 50%;
     object-fit: cover;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-@media (max-width: 768px) {
-    .central-image {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    .central-image {
-        width: 56px;
-        height: 56px;
-    }
 }
 
 /* Icon paths */
@@ -192,7 +270,7 @@ body {
 .participant-circle:hover .circle-bg {
     fill: #a8e6cf;
     stroke: #2d8659;
-    stroke-width: 4;
+    stroke-width: 3;
     filter: drop-shadow(0 8px 16px rgba(45, 134, 89, 0.3));
 }
 
@@ -239,7 +317,6 @@ body {
     
     .participant-label {
         font-size: 0.8rem;
-        bottom: -25px;
     }
 }
 

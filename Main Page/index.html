@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-buttons">
+                <button class="header-btn">Home</button>
+                <button class="header-btn">Abmelden</button>
+            </div>
+        </div>
+    </header>
+    
     <div class="container">
         <h1 class="title">ProSa Circular Economy Project</h1>
         
@@ -52,71 +61,77 @@
                 <path class="ring-segment" d="M 96 146 A 120 120 0 0 1 200 80" stroke="url(#gradient6)" />
                 
                 <!-- Connection lines to icons -->
-                <line x1="200" y1="80" x2="200" y2="40" class="connector-line" />
-                <line x1="304" y1="146" x2="340" y2="110" class="connector-line" />
-                <line x1="304" y1="254" x2="340" y2="290" class="connector-line" />
-                <line x1="200" y1="320" x2="200" y2="360" class="connector-line" />
-                <line x1="96" y1="254" x2="60" y2="290" class="connector-line" />
-                <line x1="96" y1="146" x2="60" y2="110" class="connector-line" />
+                <line x1="200" y1="80" x2="200" y2="20" class="connector-line" />
+                <line x1="297.674" y1="130.297" x2="361.11" y2="84.92" class="connector-line" />
+                <line x1="297.674" y1="269.703" x2="361.11" y2="315.08" class="connector-line" />
+                <line x1="200" y1="320" x2="200" y2="380" class="connector-line" />
+                <line x1="102.326" y1="269.703" x2="38.89" y2="315.08" class="connector-line" />
+                <line x1="102.326" y1="130.297" x2="38.89" y2="84.92" class="connector-line" />
             </svg>
             
             <!-- Participant circles -->
             <div class="participant-circle circle-1" data-participant="1">
                 <a href="#participant-1" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Production</span>
+                    <span class="participant-label">DHI</span>
                 </a>
             </div>
             
             <div class="participant-circle circle-2" data-participant="2">
                 <a href="#participant-2" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Distribution</span>
+                    <span class="participant-label">DEW</span>
                 </a>
             </div>
             
             <div class="participant-circle circle-3" data-participant="3">
                 <a href="#participant-3" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Consumption</span>
+                    <span class="participant-label">Claas</span>
                 </a>
             </div>
             
             <div class="participant-circle circle-4" data-participant="4">
                 <a href="#participant-4" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Collection</span>
+                    <span class="participant-label">EJOT</span>
                 </a>
             </div>
             
             <div class="participant-circle circle-5" data-participant="5">
                 <a href="#participant-5" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Recycling</span>
+                    <span class="participant-label">Siebau</span>
                 </a>
             </div>
             
             <div class="participant-circle circle-6" data-participant="6">
                 <a href="#participant-6" class="circle-link">
-                    <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="30" r="28" class="circle-bg" />
+                    <svg width="100%" height="100%" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="30" r="30" class="circle-bg" />
                     </svg>
-                    <span class="participant-label">Recovery</span>
+                    <span class="participant-label">Endkunde</span>
                 </a>
             </div>
         </div>
         
     </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 ProSa Circular Economy Project. All rights reserved.</p>
+        </div>
+    </footer>
     
     <script src="script.js"></script>
 </body>

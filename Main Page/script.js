@@ -7,15 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click event listeners to each participant circle
     participantCircles.forEach((circle, index) => {
         const link = circle.querySelector('.circle-link');
-        
-        // Hover effect for corresponding ring segment
+
+        // Hover effect for corresponding ring segments (previous and next)
         circle.addEventListener('mouseenter', function() {
-            // Highlight the corresponding ring segment
-            if (ringSegments[index]) {
-                ringSegments[index].style.strokeWidth = '24';
-                ringSegments[index].style.filter = 'drop-shadow(0 0 12px rgba(86, 171, 145, 0.8))';
+            // Highlight the current, previous, and next ring segments
+            const totalSegments = ringSegments.length;
+
+            // Highlight left (next) segment
+            const leftIndex = index;
+            // Highlight right (previous) segment
+            const rightIndex = (index - 1 + totalSegments) % totalSegments;
+
+            if (ringSegments[leftIndex]) {
+                ringSegments[leftIndex].style.strokeWidth = '24';
+                ringSegments[leftIndex].style.filter = 'drop-shadow(0 0 12px rgba(86, 171, 145, 0.8))';
             }
-            
+            if (ringSegments[rightIndex]) {
+                ringSegments[rightIndex].style.strokeWidth = '24';
+                ringSegments[rightIndex].style.filter = 'drop-shadow(0 0 12px rgba(86, 171, 145, 0.8))';
+            }
+
             // Highlight the corresponding connector line
             if (connectorLines[index]) {
                 connectorLines[index].style.stroke = '#2d8659';
@@ -23,14 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 connectorLines[index].style.opacity = '1';
             }
         });
-        
+
         circle.addEventListener('mouseleave', function() {
-            // Reset ring segment
-            if (ringSegments[index]) {
-                ringSegments[index].style.strokeWidth = '20';
-                ringSegments[index].style.filter = 'none';
-            }
-            
+            // Reset all ring segments
+            ringSegments.forEach(seg => {
+                seg.style.strokeWidth = '20';
+                seg.style.filter = 'none';
+            });
+
             // Reset connector line
             if (connectorLines[index]) {
                 connectorLines[index].style.stroke = '#a8e6cf';
@@ -38,24 +49,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 connectorLines[index].style.opacity = '0.6';
             }
         });
-        
+
         // Click event - you can customize the URLs or actions here
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Remove this line when you have actual links
-            
+
             const participantNumber = circle.getAttribute('data-participant');
             const participantName = circle.querySelector('.participant-label').textContent;
-            
+
             // Log the click (for demonstration)
             console.log(`Clicked on Participant ${participantNumber}: ${participantName}`);
-            
+
             // TODO: Replace with actual navigation or modal display
             // Example: window.location.href = `/participant/${participantNumber}`;
-            // Or open a modal: openModal(participantNumber);
-            
             // Temporary alert for demonstration
-            alert(`Opening details for ${participantName}\n\nYou can replace this with:\n- Navigation to a new page\n- Opening a modal dialog\n- Loading dynamic content\n- Any other interaction you need`);
+            alert(`Opening details for ${participantName}\n\nYou can replace this with:\n- Navigation to a new page\n`);
         });
+    });
+    
+    // Header button logic
+    const homeBtn = document.querySelector('.header-btn:first-child'); // Home button
+    const logoutBtn = document.querySelector('.header-btn:last-child'); // Abmelden button
+    
+    // Home button click event
+    homeBtn.addEventListener('click', function(e) {
+        // TODO: Replace with actual navigation
+        // Example: window.location.href = '/home';
+        // Temporary alert for demonstration
+        alert(`Navigating to Home\n\nYou can replace this with:\n- Navigation to home/dashboard page\n- Any other home-related functionality`);
+    });
+    
+    // Abmelden button click event
+    logoutBtn.addEventListener('click', function(e) {
+        // TODO: Replace with actual logout logic
+        // Example: clear session and redirect to login
+        // Temporary alert for demonstration
+        alert(`Logging out...\n\nYou can replace this with:\n- Clear user session\n- Redirect to login page\n- Any other logout functionality`);
     });
     
     // Add rotation animation to the main circle
