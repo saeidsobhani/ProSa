@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Click event - you can customize the URLs or actions here
+        // Click event - Navigate to participant pages
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // Remove this line when you have actual links
+            e.preventDefault();
 
             const participantNumber = circle.getAttribute('data-participant');
             const participantName = circle.querySelector('.participant-label').textContent;
@@ -60,10 +60,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Log the click (for demonstration)
             console.log(`Clicked on Participant ${participantNumber}: ${participantName}`);
 
-            // TODO: Replace with actual navigation or modal display
-            // Example: window.location.href = `/participant/${participantNumber}`;
-            // Temporary alert for demonstration
-            alert(`Opening details for ${participantName}\n\nYou can replace this with:\n- Navigation to a new page\n`);
+            // Map participant numbers to their respective pages
+            const pageMap = {
+                '1': 'dhi.html',      // DHI
+                '2': 'dew.html',      // DEW
+                '3': 'claas.html',    // Claas
+                '4': 'ejot.html',     // EJOT
+                '5': 'siebau.html',   // Siebau
+                '6': 'endkunde.html'  // Endkunde
+            };
+
+            const targetPage = pageMap[participantNumber];
+            if (targetPage) {
+                window.location.href = targetPage;
+            } else {
+                console.error('No page found for participant:', participantNumber);
+            }
         });
     });
     
@@ -73,18 +85,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Home button click event
     homeBtn.addEventListener('click', function(e) {
-        // TODO: Replace with actual navigation
-        // Example: window.location.href = '/home';
-        // Temporary alert for demonstration
-        alert(`Navigating to Home\n\nYou can replace this with:\n- Navigation to home/dashboard page\n- Any other home-related functionality`);
+        // Reload the main page
+        window.location.href = 'index.html';
     });
     
     // Abmelden button click event
     logoutBtn.addEventListener('click', function(e) {
-        // TODO: Replace with actual logout logic
-        // Example: clear session and redirect to login
-        // Temporary alert for demonstration
-        alert(`Logging out...\n\nYou can replace this with:\n- Clear user session\n- Redirect to login page\n- Any other logout functionality`);
+        if (confirm('Möchten Sie sich wirklich abmelden?')) {
+            // In a real application, this would clear session and redirect to login
+            // For now, just show a message and reload
+            alert('Abmeldung erfolgreich');
+            window.location.href = 'index.html';
+        }
     });
     
     // Add rotation animation to the main circle

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHI - ProSa Circular Economy</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        /* Page-specific table styles */
+        .dhi-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .dhi-table thead th {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: white;
+        }
+        
+        .dhi-table thead th:first-child {
+            background-color: #2d8659;
+        }
+        
+        .dhi-table thead th:nth-child(2) {
+            background-color: #ff8c00;
+        }
+        
+        .dhi-table thead th:nth-child(3) {
+            background-color: #1976d2;
+        }
+        
+        .dhi-table thead th:nth-child(4) {
+            background-color: #c2185b;
+        }
+        
+        .dhi-table tbody td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .dhi-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .dhi-table tbody td:first-child {
+            background-color: #e8f5e9;
+            font-weight: 600;
+            color: #1a6b4a;
+        }
+        
+        .dhi-table tbody td:nth-child(2) {
+            background-color: #fff3e0;
+        }
+        
+        .dhi-table tbody td:nth-child(3) {
+            background-color: #e3f2fd;
+        }
+        
+        .dhi-table tbody td:nth-child(4) {
+            background-color: #fce4ec;
+        }
+        
+        .dhi-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+            text-align: center;
+        }
+        
+        .dhi-table input:focus {
+            outline: none;
+            border-color: #2d8659;
+            box-shadow: 0 0 0 2px rgba(45, 134, 89, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .dhi-table {
+                font-size: 0.85rem;
+            }
+            
+            .dhi-table thead th,
+            .dhi-table tbody td {
+                padding: 8px 6px;
+            }
+            
+            .dhi-table input {
+                padding: 6px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="header-title">ProSa Circular Economy</h1>
+                <span class="participant-badge">DHI</span>
+            </div>
+            <div class="header-buttons">
+                <button class="header-btn" onclick="navigateToHome()">Home</button>
+                <button class="header-btn secondary" onclick="handleLogout()">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <h1 class="page-title">DHI - Schrottmanagement</h1>
+
+        <form id="dhiForm">
+            <section class="section-card">
+                <h2 class="section-title">Schrottklassen-Übersicht</h2>
+                
+                <table class="dhi-table">
+                    <thead>
+                        <tr>
+                            <th>Rohmaterial</th>
+                            <th>Bedarfsmenge</th>
+                            <th>Verfügbare Menge</th>
+                            <th>Fehlmenge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Schrottklasse 1</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_1" id="bedarfsmenge_1" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_1" id="verfuegbar_1" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_1" id="fehlmenge_1" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Schrottklasse 2</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_2" id="bedarfsmenge_2" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_2" id="verfuegbar_2" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_2" id="fehlmenge_2" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Schrottklasse 3</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_3" id="bedarfsmenge_3" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_3" id="verfuegbar_3" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_3" id="fehlmenge_3" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Schrottklasse 4</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_4" id="bedarfsmenge_4" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_4" id="verfuegbar_4" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_4" id="fehlmenge_4" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Schrottklasse 5</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_5" id="bedarfsmenge_5" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_5" id="verfuegbar_5" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_5" id="fehlmenge_5" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Schrottklasse 6</td>
+                            <td>
+                                <input type="number" name="bedarfsmenge_6" id="bedarfsmenge_6" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="verfuegbar_6" id="verfuegbar_6" 
+                                       placeholder="0" min="0" step="0.01">
+                            </td>
+                            <td>
+                                <input type="number" name="fehlmenge_6" id="fehlmenge_6" 
+                                       placeholder="0" min="0" step="0.01" readonly>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </form>
+    </main>
+
+    <!-- Action Bar for Save/Cancel -->
+    <div class="action-bar hidden">
+        <button class="btn btn-success" onclick="window.formManager.saveData()">
+            💾 Speichern
+        </button>
+        <button class="btn btn-secondary" onclick="location.reload()">
+            ↺ Zurücksetzen
+        </button>
+    </div>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 ProSa Circular Economy Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script>
+        // Calculate Fehlmenge (difference) automatically
+        function calculateFehlmenge(row) {
+            const bedarfsmenge = parseFloat(document.getElementById(`bedarfsmenge_${row}`).value) || 0;
+            const verfuegbar = parseFloat(document.getElementById(`verfuegbar_${row}`).value) || 0;
+            const fehlmenge = Math.max(0, bedarfsmenge - verfuegbar);
+            
+            document.getElementById(`fehlmenge_${row}`).value = fehlmenge.toFixed(2);
+        }
+        
+        // Page-specific initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form manager
+            window.formManager = new FormDataManager('dhiForm', 'dhi');
+            
+            // Add input listeners for automatic calculation
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`bedarfsmenge_${i}`).addEventListener('input', () => calculateFehlmenge(i));
+                document.getElementById(`verfuegbar_${i}`).addEventListener('input', () => calculateFehlmenge(i));
+            }
+            
+            // Initial calculation
+            for (let i = 1; i <= 6; i++) {
+                calculateFehlmenge(i);
+            }
+            
+            // Enable auto-save (every 30 seconds)
+            enableAutoSave(window.formManager, 30000);
+        });
+    </script>
+</body>
+</html>

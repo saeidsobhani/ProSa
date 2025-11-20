@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siebau - ProSa Circular Economy</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="header-title">ProSa Circular Economy</h1>
+                <span class="participant-badge">Siebau</span>
+            </div>
+            <div class="header-buttons">
+                <button class="header-btn" onclick="navigateToHome()">Home</button>
+                <button class="header-btn secondary" onclick="handleLogout()">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <h1 class="page-title">Siebau</h1>
+
+        <form id="siebauForm">
+            <!-- Endprodukt Information Section -->
+            <section class="section-card">
+                <h2 class="section-title">Endprodukt Information</h2>
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label" for="endprodukt">Endprodukt</label>
+                        <input type="text" id="endprodukt" name="endprodukt" class="form-input" 
+                               placeholder="Endprodukt eingeben">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="mengeEndprodukt">Menge Endprodukt</label>
+                        <input type="number" id="mengeEndprodukt" name="mengeEndprodukt" 
+                               class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Stückliste Section -->
+            <section class="section-card upload-section">
+                <h2 class="section-title">Stückliste</h2>
+                <button type="button" class="upload-button" id="uploadStuecklisteBtn">
+                    Upload Stückliste
+                </button>
+                <div class="upload-area" id="uploadStuecklisteArea">
+                    <div class="upload-placeholder">Datei hier ablegen oder klicken zum Hochladen</div>
+                </div>
+            </section>
+
+            <!-- Upload Arbeitsplan Section -->
+            <section class="section-card upload-section">
+                <h2 class="section-title">Arbeitsplan</h2>
+                <button type="button" class="upload-button" id="uploadArbeitsplanBtn">
+                    Upload Arbeitsplan
+                </button>
+                <div class="upload-area" id="uploadArbeitsplanArea">
+                    <div class="upload-placeholder">Datei hier ablegen oder klicken zum Hochladen</div>
+                </div>
+            </section>
+
+            <!-- Merkmals Section -->
+            <section class="section-card">
+                <h2 class="section-title">Merkmals</h2>
+                
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label class="form-label" for="merkmal1">Merkmal 1: Abmessung</label>
+                        <input type="text" id="merkmal1" name="merkmal1" 
+                               class="form-input" placeholder="z.B. 100x50x20 mm">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="merkmal2">Merkmal 2: Festigkeitsklasse</label>
+                        <input type="text" id="merkmal2" name="merkmal2" 
+                               class="form-input" placeholder="z.B. 8.8, 10.9">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="merkmal3">Merkmal 3: Korrosionsbeständigkeit</label>
+                        <input type="text" id="merkmal3" name="merkmal3" 
+                               class="form-input" placeholder="z.B. verzinkt, Edelstahl">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menge Section -->
+            <section class="section-card">
+                <h2 class="section-title">Menge</h2>
+                <div class="form-group">
+                    <label class="form-label" for="menge">Menge</label>
+                    <input type="number" id="menge" name="menge" 
+                           class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
+                </div>
+            </section>
+        </form>
+    </main>
+
+    <!-- Action Bar for Save/Cancel -->
+    <div class="action-bar hidden">
+        <button class="btn btn-success" onclick="window.formManager.saveData()">
+            💾 Speichern
+        </button>
+        <button class="btn btn-secondary" onclick="location.reload()">
+            ↺ Zurücksetzen
+        </button>
+    </div>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 ProSa Circular Economy Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script>
+        // Page-specific initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize form manager
+            window.formManager = new FormDataManager('siebauForm', 'siebau');
+            
+            // Initialize file upload handlers
+            window.stuecklisteUpload = new FileUploadHandler(
+                'uploadStuecklisteBtn',
+                'uploadStuecklisteArea',
+                {
+                    acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
+                    maxSize: 15 * 1024 * 1024, // 15MB
+                    onFileSelect: (file) => {
+                        console.log('Stückliste uploaded:', file.name);
+                        showMessage('Stückliste erfolgreich hochgeladen', 'success');
+                    },
+                    onFileRemove: () => {
+                        console.log('Stückliste removed');
+                        showMessage('Stückliste entfernt', 'info');
+                    }
+                }
+            );
+            
+            window.arbeitsplanUpload = new FileUploadHandler(
+                'uploadArbeitsplanBtn',
+                'uploadArbeitsplanArea',
+                {
+                    acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
+                    maxSize: 15 * 1024 * 1024, // 15MB
+                    onFileSelect: (file) => {
+                        console.log('Arbeitsplan uploaded:', file.name);
+                        showMessage('Arbeitsplan erfolgreich hochgeladen', 'success');
+                    },
+                    onFileRemove: () => {
+                        console.log('Arbeitsplan removed');
+                        showMessage('Arbeitsplan entfernt', 'info');
+                    }
+                }
+            );
+            
+            // Enable auto-save (every 30 seconds)
+            enableAutoSave(window.formManager, 30000);
+        });
+    </script>
+</body>
+</html>

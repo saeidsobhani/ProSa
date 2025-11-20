@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endkunde - ProSa Circular Economy</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-content">
+            <div class="header-left">
+                <h1 class="header-title">ProSa Circular Economy</h1>
+                <span class="participant-badge">Endkunde</span>
+            </div>
+            <div class="header-buttons">
+                <button class="header-btn" onclick="navigateToHome()">Home</button>
+                <button class="header-btn secondary" onclick="handleLogout()">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <h1 class="page-title">Endkunde</h1>
+
+        <!-- Endprodukt Information Section -->
+        <section class="section-card">
+            <h2 class="section-title">Endprodukt Information</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">Endprodukt</label>
+                    <div class="display-field" id="endproduktDisplay">-</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Menge</label>
+                    <div class="display-field" id="mengeDisplay">0</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <div class="footer-content">
+            <p class="footer-text">© 2025 ProSa Circular Economy Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="common.js"></script>
+    <script>
+        // Page-specific initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data from Siebau (upstream in the circular economy)
+            loadEndkundeData();
+        });
+        
+        function loadEndkundeData() {
+            // In a real application, this would fetch data from the backend
+            // For now, we'll try to load from Siebau's stored data
+            const siebauData = ProSaData.load('siebau');
+            
+            if (siebauData) {
+                if (siebauData.endprodukt) {
+                    document.getElementById('endproduktDisplay').textContent = siebauData.endprodukt;
+                }
+                
+                if (siebauData.mengeEndprodukt) {
+                    document.getElementById('mengeDisplay').textContent = 
+                        parseFloat(siebauData.mengeEndprodukt).toFixed(2) + ' Einheiten';
+                }
+                
+                showMessage('Daten erfolgreich geladen', 'success');
+            } else {
+                // Show placeholder data
+                    document.getElementById('endproduktDisplay').textContent = '-';
+                    document.getElementById('mengeDisplay').textContent = '0';
+            }
+        }
+    </script>
+</body>
+</html>
