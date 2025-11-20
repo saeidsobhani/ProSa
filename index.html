@@ -21,7 +21,7 @@
         
         <div class="circular-infographic">
             <!-- Central image in the middle of the big circle -->
-            <img src="../img/ProSa_cropped.png" alt="Central Image" class="central-image">
+            <img src="img/ProSa_cropped.png" alt="Central Image" class="central-image">
             <!-- Central Ring with gradient segments -->
             <svg class="main-circle" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -69,6 +69,37 @@
                 <line x1="102.326" y1="130.297" x2="38.89" y2="84.92" class="connector-line" />
             </svg>
             
+            <!-- Arrow Rings (rotating, dashed with arrowheads) -->
+            <svg class="arrow-rings" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <!-- small arrow head (pointing +X) -->
+                    <g id="arrow-head">
+                        <path d="M -6 -4 L 6 0 L -6 4 Z" class="arrow-head" />
+                    </g>
+                </defs>
+                <!-- clockwise rotating ring (radius 255px) -->
+                <g class="rotate-cw">
+                    <circle cx="300" cy="300" r="255" class="arrow-ring" />
+                    <g class="arrowheads">
+                        <use href="#arrow-head" transform="translate(300 300) rotate(0) translate(255 0) rotate(90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(90) translate(255 0) rotate(90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(180) translate(255 0) rotate(90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(270) translate(255 0) rotate(90)" />
+                    </g>
+                </g>
+                <!-- counterclockwise rotating ring (radius 265px) -->
+                <g class="rotate-ccw">
+                    <circle cx="300" cy="300" r="265" class="arrow-ring" />
+                    <g class="arrowheads">
+                        <!-- arrowheads rotated for CCW tangent direction (theta - 90) -->
+                        <use href="#arrow-head" transform="translate(300 300) rotate(0) translate(265 0) rotate(-90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(90) translate(265 0) rotate(-90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(180) translate(265 0) rotate(-90)" />
+                        <use href="#arrow-head" transform="translate(300 300) rotate(270) translate(265 0) rotate(-90)" />
+                    </g>
+                </g>
+            </svg>
+
             <!-- Participant circles -->
             <div class="participant-circle circle-1" data-participant="1">
                 <a href="#participant-1" class="circle-link">

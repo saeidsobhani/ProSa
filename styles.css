@@ -145,7 +145,7 @@ body {
     transform: translate(-50%, -50%);
     width: 400px;
     height: 400px;
-    z-index: 1;
+    z-index: 0; /* place main circle behind arrow rings */
 }
 
 /* Ring segments */
@@ -203,6 +203,52 @@ body {
     transform: translate(-50%, -50%);
     object-fit: cover;
     z-index: 2;
+}
+
+/* Arrow rings that appear behind participant nodes but above main circle */
+.arrow-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* scale with container for responsiveness */
+    height: 100%;
+    z-index: 1; /* above main circle (0) but below participant nodes (2) */
+    pointer-events: none; /* clicks pass through */
+}
+
+.arrow-ring {
+    fill: none;
+    stroke: #2d8659; /* primary teal */
+    stroke-opacity: 0.4;
+    stroke-width: 2; /* narrower dashes so arrows are easier to see */
+    stroke-dasharray: 6 8; /* shorter dashes to read better at smaller stroke width */
+    stroke-linecap: round;
+}
+
+.arrow-head {
+    fill: #2d8659;
+    fill-opacity: 0.8; /* make arrowheads more visible */
+}
+
+.rotate-cw {
+    transform-origin: 50% 50%;
+    animation: rotate-cw 50s linear infinite;
+}
+
+.rotate-ccw {
+    transform-origin: 50% 50%;
+    animation: rotate-ccw 50s linear infinite;
+}
+
+@keyframes rotate-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-ccw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
 }
 
 /* Icon paths */
