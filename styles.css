@@ -167,8 +167,9 @@ body {
 /* Participant circles */
 .participant-circle {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    --p-size: 120px; /* default circle size */
+    width: var(--p-size);
+    height: var(--p-size);
     z-index: 2;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -278,11 +279,14 @@ body {
 }
 
 /* Position each circle */
-.circle-1 {
-    top: 0;
-    left: calc(50% - 60px);
+.circle-1, .circle-4 {
+    left: 50%;
+    margin-left: calc(var(--p-size) / -2);
 }
 
+.circle-1 {
+    top: 0;
+}
 .circle-2 {
     top: 15%;
     right: 5%;
@@ -295,7 +299,6 @@ body {
 
 .circle-4 {
     bottom: 0;
-    left: calc(50% - 60px);
 }
 
 .circle-5 {
@@ -353,8 +356,7 @@ body {
     }
     
     .participant-circle {
-        width: 90px;
-        height: 90px;
+        --p-size: 90px;
     }
     
     .title {
@@ -378,8 +380,7 @@ body {
     }
     
     .participant-circle {
-        width: 70px;
-        height: 70px;
+        --p-size: 70px;
     }
     
     .title {
@@ -394,7 +395,11 @@ body {
     
     .participant-label {
         font-size: 0.7rem;
-        bottom: -20px;
+        top: 50%;
+        left: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
     }
 }
 
