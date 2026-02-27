@@ -152,7 +152,7 @@ body {
     max-width: 1200px;
     width: 100%;
     margin: 80px auto 40px auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--spacing-md) 90px var(--spacing-md); /* bottom pad clears fixed action bar */
 }
 
 .page-title {
@@ -651,4 +651,185 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ── Merkmal dynamic rows ── */
+.merkmal-header,
+.merkmal-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: var(--spacing-sm);
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.merkmal-header {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--color-grey);
+    padding: 0 4px;
+    margin-bottom: 4px;
+}
+
+.btn-merkmal-remove {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-error);
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-merkmal-remove:hover {
+    background-color: #c62828;
+}
+
+.merkmal-add-btn {
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    padding: 8px 16px;
+}
+
+@media (max-width: 600px) {
+    .merkmal-header,
+    .merkmal-row {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    .merkmal-header span:nth-child(3),
+    .merkmal-header span:nth-child(4) { display: none; }
+    .btn-merkmal-remove {
+        grid-column: 2;
+        justify-self: end;
+    }
+}
+
+/* ── Hausnorm EJOT – dynamic value rows ── */
+.hausnorm-sub-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.hausnorm-sub-section:last-child {
+    margin-bottom: 0;
+}
+
+.hausnorm-sub-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: 6px;
+    border-bottom: 1px solid #c8e6c9;
+}
+
+.hausnorm-header,
+.hausnorm-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: var(--spacing-sm);
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Read-only variant (no remove button column) */
+.hausnorm-row-readonly {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-sm);
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.hausnorm-header {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--color-grey);
+    padding: 0 4px;
+    margin-bottom: 4px;
+}
+
+/* Read-only header inside Hausnorm EJOT display on claas.html */
+.hausnorm-row-readonly ~ .hausnorm-header,
+.hausnorm-header:has(+ #ejotChemDisplay),
+.group-1 .hausnorm-header {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.hausnorm-empty-note {
+    color: var(--color-grey);
+    font-style: italic;
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) 4px;
+}
+
+@media (max-width: 600px) {
+    .hausnorm-header,
+    .hausnorm-row {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    .hausnorm-row-readonly {
+        grid-template-columns: 1fr 1fr;
+    }
+    .hausnorm-header span:nth-child(3),
+    .hausnorm-header span:nth-child(4) { display: none; }
+    .hausnorm-row .btn-merkmal-remove {
+        grid-column: 2;
+        justify-self: end;
+    }
+}
+
+/* ── Save Confirmation Flash ── */
+.save-confirmation {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.save-confirmation--visible {
+    opacity: 1;
+}
+
+.save-confirmation-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: var(--color-primary-dark);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    font-size: 1.4rem;
+    font-weight: 600;
+    transform: translateY(0);
+}
+
+.save-confirmation-icon {
+    font-size: 2rem;
+    line-height: 1;
+    color: #a8e6cf;
+}
+
+/* Also make the action-bar save button pulse briefly on click */
+.btn-save-pulse {
+    animation: savePulse 0.3s ease;
+}
+
+@keyframes savePulse {
+    0%   { transform: scale(1);    }
+    50%  { transform: scale(1.12); }
+    100% { transform: scale(1);    }
 }

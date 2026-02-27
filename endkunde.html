@@ -29,17 +29,29 @@
             
             <div class="grid-2">
                 <div class="form-group">
-                    <label class="form-label">Endprodukt</label>
-                    <div class="display-field" id="endproduktDisplay">-</div>
+                    <label class="form-label" for="endproduktInput">Endprodukt</label>
+                    <input type="text" id="endproduktInput" class="form-input"
+                           placeholder="Endprodukt eingeben">
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Menge</label>
-                    <div class="display-field" id="mengeDisplay">0</div>
+                    <label class="form-label" for="mengeInput">Menge</label>
+                    <input type="number" id="mengeInput" class="form-input"
+                           placeholder="Menge eingeben" min="0" step="1">
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Always-visible Save Bar -->
+    <div class="action-bar">
+        <button class="btn btn-success" onclick="saveEndkundeData()">
+            💾 Speichern
+        </button>
+        <button class="btn btn-secondary" onclick="location.reload()">
+            ↺ Zurücksetzen
+        </button>
+    </div>
 
     <footer class="page-footer">
         <div class="footer-content">
@@ -51,31 +63,37 @@
     <script>
         // Page-specific initialization
         document.addEventListener('DOMContentLoaded', function() {
-            // Load data from Siebau (upstream in the circular economy)
             loadEndkundeData();
         });
-        
+
         function loadEndkundeData() {
-            // In a real application, this would fetch data from the backend
-            // For now, we'll try to load from Siebau's stored data
-            const siebauData = ProSaData.load('siebau');
-            
-            if (siebauData) {
-                if (siebauData.endprodukt) {
-                    document.getElementById('endproduktDisplay').textContent = siebauData.endprodukt;
+            const data = ProSaData.load('endkunde');
+            if (data) {
+                if (data.endprodukt) {
+                    document.getElementById('endproduktInput').value = data.endprodukt;
                 }
-                
-                if (siebauData.mengeEndprodukt) {
-                    document.getElementById('mengeDisplay').textContent = 
-                        parseFloat(siebauData.mengeEndprodukt).toFixed(2) + ' Einheiten';
+                if (data.menge !== undefined && data.menge !== null) {
+                    document.getElementById('mengeInput').value = data.menge;
                 }
-                
-                showMessage('Daten erfolgreich geladen', 'success');
-            } else {
-                // Show placeholder data
-                    document.getElementById('endproduktDisplay').textContent = '-';
-                    document.getElementById('mengeDisplay').textContent = '0';
             }
+        }
+
+        function saveEndkundeData() {
+            const endprodukt = document.getElementById('endproduktInput').value.trim();
+            const mengeRaw = document.getElementById('mengeInput').value;
+            const menge = mengeRaw !== '' ? parseInt(mengeRaw, 10) : null;
+
+            if (!endprodukt) {
+                showMessage('Bitte Endprodukt eingeben.', 'error');
+                return;
+            }
+            if (menge === null || isNaN(menge) || menge < 0) {
+                showMessage('Bitte eine gültige Menge (ganze Zahl ≥ 0) eingeben.', 'error');
+                return;
+            }
+
+            ProSaData.save('endkunde', { endprodukt: endprodukt, menge: menge });
+            showSaveConfirmation();
         }
     </script>
 </body>

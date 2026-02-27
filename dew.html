@@ -38,26 +38,8 @@
         <h1 class="page-title">DEW</h1>
 
         <form id="dewForm">
-            <!-- Halbzeug Information Section -->
-            <section class="section-card">
-                <h2 class="section-title">Halbzeug Information</h2>
-                
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label class="form-label" for="halbzeug">Halbzeug</label>
-                        <input type="text" id="halbzeug" name="halbzeug" class="form-input" 
-                               placeholder="Stüli Claas" value="Stüli Claas">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="mengeHalbzeug">Menge Halbzeug</label>
-                        <input type="number" id="mengeHalbzeug" name="mengeHalbzeug" 
-                               class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
-                    </div>
-                </div>
-            </section>
 
-            <!-- Upload Stückliste Section -->
+            <!-- 1. Upload Stückliste -->
             <section class="section-card upload-section">
                 <h2 class="section-title">Stückliste</h2>
                 <button type="button" class="upload-button" id="uploadStuecklisteBtn">
@@ -68,7 +50,24 @@
                 </div>
             </section>
 
-            <!-- Upload Arbeitsplan Section -->
+            <!-- 2. Halbzeug Information (read-only – calculated by backend) -->
+            <section class="section-card">
+                <h2 class="section-title">Halbzeug Information</h2>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Halbzeug</label>
+                        <div class="display-field" id="halbzeugDisplay">-</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Menge Halbzeug</label>
+                        <div class="display-field" id="mengeHalbzeugDisplay">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Upload Arbeitsplan -->
             <section class="section-card upload-section">
                 <h2 class="section-title">Arbeitsplan</h2>
                 <button type="button" class="upload-button" id="uploadArbeitsplanBtn">
@@ -79,53 +78,66 @@
                 </div>
             </section>
 
-            <!-- Group 1: Hausnorm Claas -->
+            <!-- 4. Hausnorm Claas (read-only – mirrors claas.html) -->
             <section class="data-group group-1">
                 <h2 class="group-title">Hausnorm Claas</h2>
-                
-                <div class="data-row">
-                    <label class="row-label" for="chemischeWerte1">Chemische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="chemischeWerte1" name="chemischeWerte1" 
-                               class="form-input" placeholder="Chemische Werte eingeben">
+
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Chemische Werte</h3>
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span><span>Min</span><span>Max</span>
+                    </div>
+                    <div id="claasChemDisplay">
+                        <p class="hausnorm-empty-note">Keine Daten von Claas vorhanden.</p>
                     </div>
                 </div>
-                
-                <div class="data-row">
-                    <label class="row-label" for="mechanischeWerte1">Mechanische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="mechanischeWerte1" name="mechanischeWerte1" 
-                               class="form-input" placeholder="Mechanische Werte eingeben">
+
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Mechanische Werte</h3>
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span><span>Min</span><span>Max</span>
+                    </div>
+                    <div id="claasMechDisplay">
+                        <p class="hausnorm-empty-note">Keine Daten von Claas vorhanden.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Group 2: Schmelzkarte -->
+            <!-- 5. Schmelzkarte (editable – DEW's own entries) -->
             <section class="data-group group-2">
                 <h2 class="group-title">Schmelzkarte</h2>
-                
-                <div class="data-row">
-                    <label class="row-label" for="chemischeWerte2">Chemische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="chemischeWerte2" name="chemischeWerte2" 
-                               class="form-input" placeholder="Chemische Werte eingeben">
+
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Chemische Werte</h3>
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span><span>Ist-Wert</span><span>Einheit</span><span></span>
                     </div>
+                    <div id="dewChemList"></div>
+                    <button type="button" class="btn btn-primary merkmal-add-btn"
+                            onclick="addDewRow('dewChemList')">
+                        + Chemischen Wert hinzufügen
+                    </button>
                 </div>
-                
-                <div class="data-row">
-                    <label class="row-label" for="mechanischeWerte2">Mechanische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="mechanischeWerte2" name="mechanischeWerte2" 
-                               class="form-input" placeholder="Mechanische Werte eingeben">
+
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Mechanische Werte</h3>
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span><span>Ist-Wert</span><span>Einheit</span><span></span>
                     </div>
+                    <div id="dewMechList"></div>
+                    <button type="button" class="btn btn-primary merkmal-add-btn"
+                            onclick="addDewRow('dewMechList')">
+                        + Mechanischen Wert hinzufügen
+                    </button>
                 </div>
             </section>
+
         </form>
     </main>
 
-    <!-- Action Bar for Save/Cancel -->
-    <div class="action-bar hidden">
-        <button class="btn btn-success" onclick="window.formManager.saveData()">
+    <!-- Always-visible Save Bar -->
+    <div class="action-bar">
+        <button class="btn btn-success" onclick="saveDewData()">
             💾 Speichern
         </button>
         <button class="btn btn-secondary" onclick="location.reload()">
@@ -141,48 +153,126 @@
 
     <script src="common.js"></script>
     <script>
-        // Page-specific initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize form manager
-            window.formManager = new FormDataManager('dewForm', 'dew');
-            
-            // Initialize file upload handlers
+        let dewRowCounter = 0;
+
+        function escAttr(str) {
+            return String(str ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+                                   .replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        // ── Dynamic row helpers (Schmelzkarte) ────────────────────────────────
+        // Each row: free-text Bezeichnung | Ist-Wert (number) | Einheit (text) | ✕
+        function addDewRow(listId, bezeichnung = '', istWert = '', einheit = '') {
+            const id = 'dewRow_' + (++dewRowCounter);
+            const row = document.createElement('div');
+            row.className = 'hausnorm-row';
+            row.id = id;
+            row.innerHTML = `
+                <input type="text"   class="form-input dew-bezeichnung" placeholder="z. B. % C"
+                       value="${escAttr(bezeichnung)}">
+                <input type="number" class="form-input dew-istwert"     placeholder="Ist-Wert"
+                       step="any" value="${escAttr(istWert)}">
+                <input type="text"   class="form-input dew-einheit"     placeholder="z. B. %"
+                       value="${escAttr(einheit)}">
+                <button type="button" class="btn-merkmal-remove"
+                        onclick="removeDewRow('${id}')">✕</button>`;
+            document.getElementById(listId).appendChild(row);
+        }
+
+        function removeDewRow(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function getDewRows(listId) {
+            const rows = [];
+            document.getElementById(listId).querySelectorAll('.hausnorm-row').forEach(row => {
+                rows.push({
+                    bezeichnung: row.querySelector('.dew-bezeichnung').value,
+                    istWert:     row.querySelector('.dew-istwert').value,
+                    einheit:     row.querySelector('.dew-einheit').value
+                });
+            });
+            return rows;
+        }
+
+        function loadDewRows(listId, rows) {
+            if (!Array.isArray(rows)) return;
+            rows.forEach(r => addDewRow(listId, r.bezeichnung, r.istWert, r.einheit));
+        }
+
+        // ── Read-only display of Claas data ───────────────────────────────────
+        function renderClaasReadOnly(containerId, rows) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (!Array.isArray(rows) || rows.length === 0) {
+                container.innerHTML = '<p class="hausnorm-empty-note">Keine Daten von Claas vorhanden.</p>';
+                return;
+            }
+            container.innerHTML = rows.map(r => `
+                <div class="hausnorm-row-readonly">
+                    <span class="display-field">${escAttr(r.bezeichnung)}</span>
+                    <span class="display-field">${r.min !== '' && r.min != null ? escAttr(r.min) : '-'}</span>
+                    <span class="display-field">${r.max !== '' && r.max != null ? escAttr(r.max) : '-'}</span>
+                </div>`).join('');
+        }
+
+        // ── Save ──────────────────────────────────────────────────────────────
+        function saveDewData() {
+            ProSaData.save('dew', {
+                chemRows: getDewRows('dewChemList'),
+                mechRows: getDewRows('dewMechList')
+            });
+            showSaveConfirmation();
+        }
+
+        // ── Bootstrap on load ─────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Halbzeug read-only (from backend / dew_halbzeug key)
+            const halbzeugData = ProSaData.load('dew_halbzeug');
+            if (halbzeugData) {
+                const hd = document.getElementById('halbzeugDisplay');
+                const md = document.getElementById('mengeHalbzeugDisplay');
+                if (hd && halbzeugData.halbzeug) hd.textContent = halbzeugData.halbzeug;
+                if (md && halbzeugData.menge)     md.textContent = halbzeugData.menge;
+            }
+
+            // Hausnorm Claas – read-only from claas.html data
+            const claasData = ProSaData.load('claas');
+            renderClaasReadOnly('claasChemDisplay', claasData && claasData.chemRows);
+            renderClaasReadOnly('claasMechDisplay', claasData && claasData.mechRows);
+
+            // Schmelzkarte – restore saved rows or add one empty row each
+            const saved = ProSaData.load('dew');
+            if (saved && (saved.chemRows?.length || saved.mechRows?.length)) {
+                loadDewRows('dewChemList', saved.chemRows);
+                loadDewRows('dewMechList', saved.mechRows);
+            } else {
+                addDewRow('dewChemList');
+                addDewRow('dewMechList');
+            }
+
+            // File-upload handlers
             window.stuecklisteUpload = new FileUploadHandler(
-                'uploadStuecklisteBtn',
-                'uploadStuecklisteArea',
+                'uploadStuecklisteBtn', 'uploadStuecklisteArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Stückliste uploaded:', file.name);
-                        showMessage('Stückliste erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Stückliste removed');
-                        showMessage('Stückliste entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: () => {},
+                    onFileRemove: () => {}
                 }
             );
-            
+
             window.arbeitsplanUpload = new FileUploadHandler(
-                'uploadArbeitsplanBtn',
-                'uploadArbeitsplanArea',
+                'uploadArbeitsplanBtn', 'uploadArbeitsplanArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Arbeitsplan uploaded:', file.name);
-                        showMessage('Arbeitsplan erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Arbeitsplan removed');
-                        showMessage('Arbeitsplan entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: () => {},
+                    onFileRemove: () => {}
                 }
             );
-            
-            // Enable auto-save (every 30 seconds)
-            enableAutoSave(window.formManager, 30000);
         });
     </script>
 </body>

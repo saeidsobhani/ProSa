@@ -402,3 +402,40 @@ window.navigateToPage = navigateToPage;
 window.handleLogout = handleLogout;
 window.showMessage = showMessage;
 window.enableAutoSave = enableAutoSave;
+
+// Prominent full-screen save confirmation flash
+function showSaveConfirmation() {
+    // Remove any existing confirmation
+    const existing = document.getElementById('saveConfirmation');
+    if (existing) existing.remove();
+
+    // Pulse the save button
+    const saveBtn = document.querySelector('.action-bar .btn-success');
+    if (saveBtn) {
+        saveBtn.classList.add('btn-save-pulse');
+        saveBtn.addEventListener('animationend', () => saveBtn.classList.remove('btn-save-pulse'), { once: true });
+    }
+
+    const el = document.createElement('div');
+    el.id = 'saveConfirmation';
+    el.className = 'save-confirmation';
+    el.innerHTML = `
+        <div class="save-confirmation-inner">
+            <span class="save-confirmation-icon">✓</span>
+            <span class="save-confirmation-text">Gespeichert</span>
+        </div>
+    `;
+    document.body.appendChild(el);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => el.classList.add('save-confirmation--visible'));
+    });
+
+    // Fade out after 1.6 s
+    setTimeout(() => {
+        el.classList.remove('save-confirmation--visible');
+        el.addEventListener('transitionend', () => el.remove(), { once: true });
+    }, 1600);
+}
+window.showSaveConfirmation = showSaveConfirmation;

@@ -50,14 +50,27 @@
             border-bottom: none;
         }
         
+        /* Rohmaterial column */
         .dhi-table tbody td:first-child {
             background-color: #e8f5e9;
             font-weight: 600;
             color: #1a6b4a;
         }
         
+        /* Bedarfsmenge column – read-only */
         .dhi-table tbody td:nth-child(2) {
             background-color: #fff3e0;
+        }
+        .dhi-table .cell-readonly {
+            display: inline-block;
+            width: 100%;
+            padding: 8px;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            color: #555;
+            font-size: 0.95rem;
+            min-height: 36px;
         }
         
         .dhi-table tbody td:nth-child(3) {
@@ -81,6 +94,27 @@
             outline: none;
             border-color: #2d8659;
             box-shadow: 0 0 0 2px rgba(45, 134, 89, 0.2);
+        }
+
+        .dhi-table .fehlmenge-display {
+            display: inline-block;
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            min-height: 36px;
+            border: 1px solid transparent;
+        }
+        .dhi-table .fehlmenge-display.shortage {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+        .dhi-table .fehlmenge-display.ok {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
         }
         
         @media (max-width: 768px) {
@@ -133,93 +167,39 @@
                     <tbody>
                         <tr>
                             <td>Schrottklasse 1</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_1" id="bedarfsmenge_1" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_1" id="verfuegbar_1" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_1" id="fehlmenge_1" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_1">-</div></td>
+                            <td><input type="number" name="verfuegbar_1" id="verfuegbar_1" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_1">-</div></td>
                         </tr>
                         <tr>
                             <td>Schrottklasse 2</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_2" id="bedarfsmenge_2" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_2" id="verfuegbar_2" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_2" id="fehlmenge_2" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_2">-</div></td>
+                            <td><input type="number" name="verfuegbar_2" id="verfuegbar_2" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_2">-</div></td>
                         </tr>
                         <tr>
                             <td>Schrottklasse 3</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_3" id="bedarfsmenge_3" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_3" id="verfuegbar_3" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_3" id="fehlmenge_3" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_3">-</div></td>
+                            <td><input type="number" name="verfuegbar_3" id="verfuegbar_3" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_3">-</div></td>
                         </tr>
                         <tr>
                             <td>Schrottklasse 4</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_4" id="bedarfsmenge_4" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_4" id="verfuegbar_4" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_4" id="fehlmenge_4" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_4">-</div></td>
+                            <td><input type="number" name="verfuegbar_4" id="verfuegbar_4" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_4">-</div></td>
                         </tr>
                         <tr>
                             <td>Schrottklasse 5</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_5" id="bedarfsmenge_5" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_5" id="verfuegbar_5" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_5" id="fehlmenge_5" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_5">-</div></td>
+                            <td><input type="number" name="verfuegbar_5" id="verfuegbar_5" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_5">-</div></td>
                         </tr>
                         <tr>
                             <td>Schrottklasse 6</td>
-                            <td>
-                                <input type="number" name="bedarfsmenge_6" id="bedarfsmenge_6" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="verfuegbar_6" id="verfuegbar_6" 
-                                       placeholder="0" min="0" step="0.01">
-                            </td>
-                            <td>
-                                <input type="number" name="fehlmenge_6" id="fehlmenge_6" 
-                                       placeholder="0" min="0" step="0.01" readonly>
-                            </td>
+                            <td><div class="cell-readonly" id="bedarfsmenge_6">-</div></td>
+                            <td><input type="number" name="verfuegbar_6" id="verfuegbar_6" placeholder="0.00" step="0.01"></td>
+                            <td><div class="fehlmenge-display ok" id="fehlmenge_6">-</div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -227,9 +207,9 @@
         </form>
     </main>
 
-    <!-- Action Bar for Save/Cancel -->
-    <div class="action-bar hidden">
-        <button class="btn btn-success" onclick="window.formManager.saveData()">
+    <!-- Always-visible Save Bar -->
+    <div class="action-bar">
+        <button class="btn btn-success" onclick="saveDhiData()">
             💾 Speichern
         </button>
         <button class="btn btn-secondary" onclick="location.reload()">
@@ -245,33 +225,58 @@
 
     <script src="common.js"></script>
     <script>
-        // Calculate Fehlmenge (difference) automatically
-        function calculateFehlmenge(row) {
-            const bedarfsmenge = parseFloat(document.getElementById(`bedarfsmenge_${row}`).value) || 0;
-            const verfuegbar = parseFloat(document.getElementById(`verfuegbar_${row}`).value) || 0;
-            const fehlmenge = Math.max(0, bedarfsmenge - verfuegbar);
-            
-            document.getElementById(`fehlmenge_${row}`).value = fehlmenge.toFixed(2);
-        }
-        
-        // Page-specific initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize form manager
-            window.formManager = new FormDataManager('dhiForm', 'dhi');
-            
-            // Add input listeners for automatic calculation
-            for (let i = 1; i <= 6; i++) {
-                document.getElementById(`bedarfsmenge_${i}`).addEventListener('input', () => calculateFehlmenge(i));
-                document.getElementById(`verfuegbar_${i}`).addEventListener('input', () => calculateFehlmenge(i));
+        // Recalculate Fehlmenge = Bedarfsmenge - Verfügbare Menge for one row
+        function calculateFehlmenge(i) {
+            const bedarf    = parseFloat(document.getElementById(`bedarfsmenge_${i}`).dataset.value) || 0;
+            const verfuegbar = parseFloat(document.getElementById(`verfuegbar_${i}`).value) || 0;
+            const fehlmenge  = bedarf - verfuegbar;
+            const el = document.getElementById(`fehlmenge_${i}`);
+
+            if (bedarf === 0 && verfuegbar === 0) {
+                el.textContent = '-';
+                el.className = 'fehlmenge-display ok';
+            } else {
+                el.textContent = fehlmenge.toFixed(2);
+                el.className   = 'fehlmenge-display ' + (fehlmenge > 0 ? 'shortage' : 'ok');
             }
-            
-            // Initial calculation
+        }
+
+        function saveDhiData() {
+            const data = {};
             for (let i = 1; i <= 6; i++) {
+                data[`verfuegbar_${i}`] = document.getElementById(`verfuegbar_${i}`).value;
+            }
+            ProSaData.save('dhi', data);
+            showSaveConfirmation();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Load Bedarfsmenge from backend key 'dhi_bedarf'
+            const bedarf = ProSaData.load('dhi_bedarf');
+            for (let i = 1; i <= 6; i++) {
+                const el = document.getElementById(`bedarfsmenge_${i}`);
+                const val = bedarf && bedarf[`bedarfsmenge_${i}`] != null
+                    ? bedarf[`bedarfsmenge_${i}`] : null;
+                el.textContent    = val != null ? val : '-';
+                el.dataset.value  = val != null ? val : '0';
+            }
+
+            // Restore saved Verfügbare Menge
+            const saved = ProSaData.load('dhi');
+            if (saved) {
+                for (let i = 1; i <= 6; i++) {
+                    const el = document.getElementById(`verfuegbar_${i}`);
+                    if (saved[`verfuegbar_${i}`] != null) el.value = saved[`verfuegbar_${i}`];
+                }
+            }
+
+            // Wire up live calculation
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`verfuegbar_${i}`)
+                    .addEventListener('input', () => calculateFehlmenge(i));
                 calculateFehlmenge(i);
             }
-            
-            // Enable auto-save (every 30 seconds)
-            enableAutoSave(window.formManager, 30000);
         });
     </script>
 </body>

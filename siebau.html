@@ -30,15 +30,13 @@
                 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label" for="endprodukt">Endprodukt</label>
-                        <input type="text" id="endprodukt" name="endprodukt" class="form-input" 
-                               placeholder="Endprodukt eingeben">
+                        <label class="form-label">Endprodukt</label>
+                        <div class="display-field" id="endproduktDisplay">-</div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="mengeEndprodukt">Menge Endprodukt</label>
-                        <input type="number" id="mengeEndprodukt" name="mengeEndprodukt" 
-                               class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
+                        <label class="form-label">Menge</label>
+                        <div class="display-field" id="mengeDisplay">-</div>
                     </div>
                 </div>
             </section>
@@ -67,44 +65,29 @@
 
             <!-- Merkmals Section -->
             <section class="section-card">
-                <h2 class="section-title">Merkmals</h2>
-                
-                <div class="grid-3">
-                    <div class="form-group">
-                        <label class="form-label" for="merkmal1">Merkmal 1: Abmessung</label>
-                        <input type="text" id="merkmal1" name="merkmal1" 
-                               class="form-input" placeholder="z.B. 100x50x20 mm">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="merkmal2">Merkmal 2: Festigkeitsklasse</label>
-                        <input type="text" id="merkmal2" name="merkmal2" 
-                               class="form-input" placeholder="Placeholder">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="merkmal3">Merkmal 3: Korrosionsbeständigkeit</label>
-                        <input type="text" id="merkmal3" name="merkmal3" 
-                               class="form-input" placeholder="z.B. Edelstahl">
-                    </div>
-                </div>
-            </section>
+                <h2 class="section-title">Merkmale</h2>
 
-            <!-- Menge Section -->
-            <section class="section-card">
-                <h2 class="section-title">Menge</h2>
-                <div class="form-group">
-                    <label class="form-label" for="menge">Menge</label>
-                    <input type="number" id="menge" name="menge" 
-                           class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
+                <div class="merkmal-header">
+                    <span>Name</span>
+                    <span>Wert</span>
+                    <span>Einheit</span>
+                    <span></span>
                 </div>
+
+                <div id="merkmalList">
+                    <!-- rows injected by JS -->
+                </div>
+
+                <button type="button" class="btn btn-primary merkmal-add-btn" onclick="addMerkmalRow()">
+                    + Merkmal hinzufügen
+                </button>
             </section>
         </form>
     </main>
 
-    <!-- Action Bar for Save/Cancel -->
-    <div class="action-bar hidden">
-        <button class="btn btn-success" onclick="window.formManager.saveData()">
+    <!-- Always-visible Save Bar -->
+    <div class="action-bar">
+        <button class="btn btn-success" onclick="saveSiebauData()">
             💾 Speichern
         </button>
         <button class="btn btn-secondary" onclick="location.reload()">
@@ -122,47 +105,101 @@
     <script>
         // Page-specific initialization
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize form manager
-            window.formManager = new FormDataManager('siebauForm', 'siebau');
-            
-            // Initialize file upload handlers
+            // Load read-only Endkunde data into the first section
+            loadEndkundeData();
+
+            // Restore saved merkmale (or start with one empty row)
+            const saved = ProSaData.load('siebau');
+            loadMerkmale(saved && saved.merkmale ? saved.merkmale : []);
+
+            // File upload handlers
             window.stuecklisteUpload = new FileUploadHandler(
-                'uploadStuecklisteBtn',
-                'uploadStuecklisteArea',
+                'uploadStuecklisteBtn', 'uploadStuecklisteArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Stückliste uploaded:', file.name);
-                        showMessage('Stückliste erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Stückliste removed');
-                        showMessage('Stückliste entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: (file) => showMessage('Stückliste erfolgreich hochgeladen', 'success'),
+                    onFileRemove: () => showMessage('Stückliste entfernt', 'info')
                 }
             );
-            
+
             window.arbeitsplanUpload = new FileUploadHandler(
-                'uploadArbeitsplanBtn',
-                'uploadArbeitsplanArea',
+                'uploadArbeitsplanBtn', 'uploadArbeitsplanArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Arbeitsplan uploaded:', file.name);
-                        showMessage('Arbeitsplan erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Arbeitsplan removed');
-                        showMessage('Arbeitsplan entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: (file) => showMessage('Arbeitsplan erfolgreich hochgeladen', 'success'),
+                    onFileRemove: () => showMessage('Arbeitsplan entfernt', 'info')
                 }
             );
-            
-            // Enable auto-save (every 30 seconds)
-            enableAutoSave(window.formManager, 30000);
         });
+
+        /* ── Save ── */
+        function saveSiebauData() {
+            ProSaData.save('siebau', { merkmale: getMerkmale() });
+            showSaveConfirmation();
+        }
+
+        function loadEndkundeData() {
+            const data = ProSaData.load('endkunde');
+            if (data) {
+                document.getElementById('endproduktDisplay').textContent =
+                    data.endprodukt || '-';
+                document.getElementById('mengeDisplay').textContent =
+                    (data.menge !== undefined && data.menge !== null) ? data.menge : '-';
+            }
+        }
+
+        /* ── Merkmal dynamic rows ── */
+        let merkmalCounter = 0;
+
+        function addMerkmalRow(name = '', wert = '', einheit = '') {
+            merkmalCounter++;
+            const id = merkmalCounter;
+            const list = document.getElementById('merkmalList');
+
+            const row = document.createElement('div');
+            row.className = 'merkmal-row';
+            row.dataset.id = id;
+            row.innerHTML = `
+                <input type="text" class="form-input merkmal-name"
+                       placeholder="Name" value="${escAttr(name)}">
+                <input type="text" class="form-input merkmal-wert"
+                       placeholder="Wert" value="${escAttr(wert)}">
+                <input type="text" class="form-input merkmal-einheit"
+                       placeholder="Einheit" value="${escAttr(einheit)}">
+                <button type="button" class="btn-merkmal-remove" title="Merkmal entfernen"
+                        onclick="removeMerkmalRow(${id})">✕</button>
+            `;
+            list.appendChild(row);
+        }
+
+        function removeMerkmalRow(id) {
+            const row = document.querySelector(`.merkmal-row[data-id="${id}"]`);
+            if (row) row.remove();
+        }
+
+        function getMerkmale() {
+            return Array.from(document.querySelectorAll('.merkmal-row')).map(row => ({
+                name:    row.querySelector('.merkmal-name').value.trim(),
+                wert:    row.querySelector('.merkmal-wert').value.trim(),
+                einheit: row.querySelector('.merkmal-einheit').value.trim()
+            }));
+        }
+
+        function loadMerkmale(merkmale) {
+            document.getElementById('merkmalList').innerHTML = '';
+            merkmalCounter = 0;
+            if (merkmale && merkmale.length > 0) {
+                merkmale.forEach(m => addMerkmalRow(m.name, m.wert, m.einheit));
+            } else {
+                addMerkmalRow(); // start with one empty row
+            }
+        }
+
+        function escAttr(str) {
+            return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;');
+        }
     </script>
 </body>
 </html>

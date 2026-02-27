@@ -38,26 +38,8 @@
         <h1 class="page-title">Claas</h1>
 
         <form id="claasForm">
-            <!-- Halbzeug Information Section -->
-            <section class="section-card">
-                <h2 class="section-title">Halbzeug Information</h2>
-                
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label class="form-label" for="halbzeug">Halbzeug</label>
-                        <input type="text" id="halbzeug" name="halbzeug" class="form-input" 
-                               placeholder="Stüli Claas" value="Stüli Claas">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="mengeHalbzeug">Menge Halbzeug</label>
-                        <input type="number" id="mengeHalbzeug" name="mengeHalbzeug" 
-                               class="form-input" placeholder="Menge eingeben" min="0" step="0.01">
-                    </div>
-                </div>
-            </section>
 
-            <!-- Upload Stückliste Section -->
+            <!-- 1. Upload Stückliste Section -->
             <section class="section-card upload-section">
                 <h2 class="section-title">Stückliste</h2>
                 <button type="button" class="upload-button" id="uploadStuecklisteBtn">
@@ -68,7 +50,24 @@
                 </div>
             </section>
 
-            <!-- Upload Arbeitsplan Section -->
+            <!-- 2. Halbzeug Information (read-only – calculated by backend) -->
+            <section class="section-card">
+                <h2 class="section-title">Halbzeug Information</h2>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Halbzeug</label>
+                        <div class="display-field" id="halbzeugDisplay">-</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Menge Halbzeug</label>
+                        <div class="display-field" id="mengeHalbzeugDisplay">-</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Upload Arbeitsplan Section -->
             <section class="section-card upload-section">
                 <h2 class="section-title">Arbeitsplan</h2>
                 <button type="button" class="upload-button" id="uploadArbeitsplanBtn">
@@ -79,53 +78,90 @@
                 </div>
             </section>
 
-            <!-- Group 1: Hausnorm EJOT -->
+            <!-- 4. Hausnorm EJOT (read-only – displays data entered in ejot.html) -->
             <section class="data-group group-1">
                 <h2 class="group-title">Hausnorm EJOT</h2>
-                
-                <div class="data-row">
-                    <label class="row-label" for="chemischeWerte1">Chemische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="chemischeWerte1" name="chemischeWerte1" 
-                               class="form-input" placeholder="Chemische Werte eingeben">
+
+                <!-- Chemische Werte -->
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Chemische Werte</h3>
+
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span>
+                        <span>Min</span>
+                        <span>Max</span>
+                    </div>
+
+                    <div id="ejotChemDisplay">
+                        <p class="hausnorm-empty-note">Keine Daten von EJOT vorhanden.</p>
                     </div>
                 </div>
-                
-                <div class="data-row">
-                    <label class="row-label" for="mechanischeWerte1">Mechanische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="mechanischeWerte1" name="mechanischeWerte1" 
-                               class="form-input" placeholder="Mechanische Werte eingeben">
+
+                <!-- Mechanische Werte -->
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Mechanische Werte</h3>
+
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span>
+                        <span>Min</span>
+                        <span>Max</span>
+                    </div>
+
+                    <div id="ejotMechDisplay">
+                        <p class="hausnorm-empty-note">Keine Daten von EJOT vorhanden.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Group 2: Hausnorm Claas -->
+            <!-- 5. Hausnorm Claas (editable – same pattern as Hausnorm EJOT on ejot.html) -->
             <section class="data-group group-2">
                 <h2 class="group-title">Hausnorm Claas</h2>
-                
-                <div class="data-row">
-                    <label class="row-label" for="chemischeWerte2">Chemische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="chemischeWerte2" name="chemischeWerte2" 
-                               class="form-input" placeholder="Chemische Werte eingeben">
+
+                <!-- Chemische Werte -->
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Chemische Werte</h3>
+
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span>
+                        <span>Min</span>
+                        <span>Max</span>
+                        <span></span>
                     </div>
+
+                    <div id="claasChemList"></div>
+
+                    <button type="button" class="btn btn-primary merkmal-add-btn"
+                            onclick="addClaasRow('claasChemList', 'chem')">
+                        + Chemischen Wert hinzufügen
+                    </button>
                 </div>
-                
-                <div class="data-row">
-                    <label class="row-label" for="mechanischeWerte2">Mechanische Werte</label>
-                    <div class="row-value">
-                        <input type="text" id="mechanischeWerte2" name="mechanischeWerte2" 
-                               class="form-input" placeholder="Mechanische Werte eingeben">
+
+                <!-- Mechanische Werte -->
+                <div class="hausnorm-sub-section">
+                    <h3 class="hausnorm-sub-title">Mechanische Werte</h3>
+
+                    <div class="hausnorm-header">
+                        <span>Bezeichnung</span>
+                        <span>Min</span>
+                        <span>Max</span>
+                        <span></span>
                     </div>
+
+                    <div id="claasMechList"></div>
+
+                    <button type="button" class="btn btn-primary merkmal-add-btn"
+                            onclick="addClaasRow('claasMechList', 'mech')">
+                        + Mechanischen Wert hinzufügen
+                    </button>
                 </div>
             </section>
+
         </form>
     </main>
 
-    <!-- Action Bar for Save/Cancel -->
-    <div class="action-bar hidden">
-        <button class="btn btn-success" onclick="window.formManager.saveData()">
+    <!-- Always-visible Save Bar -->
+    <div class="action-bar">
+        <button class="btn btn-success" onclick="saveClaasData()">
             💾 Speichern
         </button>
         <button class="btn btn-secondary" onclick="location.reload()">
@@ -141,48 +177,165 @@
 
     <script src="common.js"></script>
     <script>
-        // Page-specific initialization
+
+        /* ── Hausnorm Claas – dropdown options ── */
+
+        const CLAAS_CHEM_OPTIONS = [
+            '% C  – Kohlenstoff',
+            '% Si – Silizium',
+            '% Mn – Mangan',
+            '% P  – Phosphor',
+            '% S  – Schwefel',
+            '% Cr – Chrom',
+            '% Ni – Nickel',
+            '% Mo – Molybdän',
+            '% Cu – Kupfer',
+            '% N  – Stickstoff',
+            '% Al – Aluminium',
+            '% B  – Bor',
+            '% V  – Vanadium',
+            '% Pb – Blei',
+            '% As – Arsen',
+            '% Sn – Zinn',
+            '% Sb – Antimon',
+            '% O  – Sauerstoff',
+            '% Ti – Titan',
+            '% Ca – Calcium',
+            '% H  – Wasserstoff',
+            '% Zn – Zink'
+        ];
+
+        const CLAAS_MECH_OPTIONS = [
+            'Zugfestigkeit Rm [N/mm²]',
+            'Einschnürung [%]',
+            'Kernhärte [HRC]'
+        ];
+
+        let claasRowCounter = 0;
+
+        function addClaasRow(listId, type, bezeichnung = '', min = '', max = '') {
+            claasRowCounter++;
+            const id = claasRowCounter;
+            const options = type === 'chem' ? CLAAS_CHEM_OPTIONS : CLAAS_MECH_OPTIONS;
+            const list = document.getElementById(listId);
+
+            const optionsHtml = options.map(o =>
+                `<option value="${o}" ${o === bezeichnung ? 'selected' : ''}>${o}</option>`
+            ).join('');
+
+            const row = document.createElement('div');
+            row.className = 'hausnorm-row';
+            row.dataset.id = id;
+            row.innerHTML = `
+                <select class="form-input hausnorm-bezeichnung">
+                    <option value="">– Bitte wählen –</option>
+                    ${optionsHtml}
+                </select>
+                <input type="number" class="form-input hausnorm-min"
+                       placeholder="Min" step="any" value="${escAttr(min)}">
+                <input type="number" class="form-input hausnorm-max"
+                       placeholder="Max" step="any" value="${escAttr(max)}">
+                <button type="button" class="btn-merkmal-remove" title="Zeile entfernen"
+                        onclick="removeClaasRow(${id})">✕</button>
+            `;
+            list.appendChild(row);
+        }
+
+        function removeClaasRow(id) {
+            const row = document.querySelector(`.hausnorm-row[data-id="${id}"]`);
+            if (row) row.remove();
+        }
+
+        function getClaasRows(listId) {
+            return Array.from(document.querySelectorAll(`#${listId} .hausnorm-row`)).map(row => ({
+                bezeichnung: row.querySelector('.hausnorm-bezeichnung').value,
+                min:         row.querySelector('.hausnorm-min').value,
+                max:         row.querySelector('.hausnorm-max').value
+            }));
+        }
+
+        function loadClaasRows(listId, type, rows) {
+            document.getElementById(listId).innerHTML = '';
+            if (rows && rows.length > 0) {
+                rows.forEach(r => addClaasRow(listId, type, r.bezeichnung, r.min, r.max));
+            } else {
+                addClaasRow(listId, type);
+            }
+        }
+
+        /* ── Hausnorm EJOT – read-only display ── */
+
+        function renderEjotReadOnly(containerId, rows) {
+            const container = document.getElementById(containerId);
+            if (!rows || rows.length === 0) {
+                container.innerHTML = '<p class="hausnorm-empty-note">Keine Daten von EJOT vorhanden.</p>';
+                return;
+            }
+            container.innerHTML = rows.map(r => `
+                <div class="hausnorm-row hausnorm-row-readonly">
+                    <div class="display-field">${r.bezeichnung || '-'}</div>
+                    <div class="display-field">${r.min !== '' && r.min !== undefined ? r.min : '-'}</div>
+                    <div class="display-field">${r.max !== '' && r.max !== undefined ? r.max : '-'}</div>
+                </div>
+            `).join('');
+        }
+
+        /* ── Save – directly writes all data to localStorage ── */
+        function saveClaasData() {
+            const data = {
+                chemRows: getClaasRows('claasChemList'),
+                mechRows: getClaasRows('claasMechList')
+            };
+            ProSaData.save('claas', data);
+            showSaveConfirmation();
+        }
+
+        function escAttr(str) {
+            return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;');
+        }
+
+        /* ── Page init ── */
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize form manager
-            window.formManager = new FormDataManager('claasForm', 'claas');
-            
-            // Initialize file upload handlers
+
+            // Halbzeug – read-only, populated from backend later
+            const backendData = ProSaData.load('claas_halbzeug');
+            if (backendData) {
+                document.getElementById('halbzeugDisplay').textContent =
+                    backendData.halbzeug || '-';
+                document.getElementById('mengeHalbzeugDisplay').textContent =
+                    backendData.menge !== undefined ? backendData.menge : '-';
+            }
+
+            // Load Hausnorm EJOT read-only data from ejot's saved rows
+            const ejotData = ProSaData.load('ejot');
+            renderEjotReadOnly('ejotChemDisplay', ejotData && ejotData.chemRows ? ejotData.chemRows : []);
+            renderEjotReadOnly('ejotMechDisplay', ejotData && ejotData.mechRows ? ejotData.mechRows : []);
+
+            // Restore saved Hausnorm Claas rows or start with one empty row each
+            const saved = ProSaData.load('claas');
+            loadClaasRows('claasChemList', 'chem', saved && saved.chemRows ? saved.chemRows : []);
+            loadClaasRows('claasMechList', 'mech', saved && saved.mechRows ? saved.mechRows : []);
+
+            // File upload handlers
             window.stuecklisteUpload = new FileUploadHandler(
-                'uploadStuecklisteBtn',
-                'uploadStuecklisteArea',
+                'uploadStuecklisteBtn', 'uploadStuecklisteArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Stückliste uploaded:', file.name);
-                        showMessage('Stückliste erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Stückliste removed');
-                        showMessage('Stückliste entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: (file) => showMessage('Stückliste erfolgreich hochgeladen', 'success'),
+                    onFileRemove: () => showMessage('Stückliste entfernt', 'info')
                 }
             );
-            
+
             window.arbeitsplanUpload = new FileUploadHandler(
-                'uploadArbeitsplanBtn',
-                'uploadArbeitsplanArea',
+                'uploadArbeitsplanBtn', 'uploadArbeitsplanArea',
                 {
                     acceptedTypes: ['.pdf', '.xlsx', '.xls', '.csv', '.doc', '.docx'],
-                    maxSize: 15 * 1024 * 1024, // 15MB
-                    onFileSelect: (file) => {
-                        console.log('Arbeitsplan uploaded:', file.name);
-                        showMessage('Arbeitsplan erfolgreich hochgeladen', 'success');
-                    },
-                    onFileRemove: () => {
-                        console.log('Arbeitsplan removed');
-                        showMessage('Arbeitsplan entfernt', 'info');
-                    }
+                    maxSize: 15 * 1024 * 1024,
+                    onFileSelect: (file) => showMessage('Arbeitsplan erfolgreich hochgeladen', 'success'),
+                    onFileRemove: () => showMessage('Arbeitsplan entfernt', 'info')
                 }
             );
-            
-            // Enable auto-save (every 30 seconds)
-            enableAutoSave(window.formManager, 30000);
         });
     </script>
 </body>
